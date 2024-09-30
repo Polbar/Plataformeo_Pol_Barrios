@@ -5,12 +5,20 @@ using UnityEngine;
 public class PlayerConroller : MonoBehaviour
 {
     private Rigidbody2D characterRigidbody;
+
     private float horizontalInput;
+
     private bool jumpInput;
+
     [SerializeField]private float characterSpeed = 4.5f;
+
     [SerializeField] private float jumpForce = 5;
+
     public static Animator characterAnimator;
+
     [SerializeField] private int healthPoints = 5;
+
+    private bool isAttacking;
 
     void Awake()
     {
@@ -25,6 +33,35 @@ public class PlayerConroller : MonoBehaviour
     }
 
     void Update()
+    {   
+        
+        Movement();
+
+      
+       if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded && !isAttacking)
+       {
+            Jump();
+       }
+
+       if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
+       {
+            Attack();
+       }
+    }
+
+    void Jump()
+    {
+        characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
+        characterAnimator.SetBool("IsJumping", true);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        characterRigidbody.velocity = new Vector2(horizontalInput  * characterSpeed, characterRigidbody.velocity.y);
+    }
+
+    void Movement()
     {
        horizontalInput = Input.GetAxis("Horizontal"); 
 
@@ -44,34 +81,41 @@ public class PlayerConroller : MonoBehaviour
        {
         characterAnimator.SetBool("IsRunning", false);
        }
-      
-       if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded == true)
-       {
-         characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
-         characterAnimator.SetBool("IsJumping", true);
-       }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Attack()
     {
-        characterRigidbody.velocity = new Vector2(horizontalInput  * characterSpeed, characterRigidbody.velocity.y);
+        StartCoroutine(AttackAnimation());
+        characterAnimator.SetTrigger("Attack");
+    }
+
+    IEnumerator AttackAnimation()
+    {
+        isAttacking = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        isAttacking = false;
     }
 
     void TakeDamage()
         {
             healthPoints--;
-            characterAnimator.SetTrigger("IsHurt");
+
             
-            if(healthPoints == 0)
+            if(healthPoints <= 0)
             {
                 Die();
+            }
+            else
+            {
+                characterAnimator.SetTrigger("IsHurt");
             }
         }
     
     void Die()
     {
-        characterAnimator.SetBool("IsDeath", true);
+        characterAnimator.SetTrigger("IsDeath");
         Destroy(gameObject, 1f);
     }
 
