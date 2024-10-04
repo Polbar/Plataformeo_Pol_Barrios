@@ -21,8 +21,8 @@ public class PlayerConroller : MonoBehaviour
     private bool isAttacking;
 
     [SerializeField] private Transform attackHitBox;
-    
-    [SerializeField] private float attackRadius = 1;
+
+    [SerializeField] private float attackRadius = 3;
 
     void Awake()
     {
@@ -85,7 +85,7 @@ public class PlayerConroller : MonoBehaviour
             
             characterAnimator.SetBool("IsRunning", true);
        }
-else if(horizontalInput > 0)
+        else if(horizontalInput > 0)
        {
 
         if(!isAttacking)
