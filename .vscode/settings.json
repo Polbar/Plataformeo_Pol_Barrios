@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Plataformas2D.sln"
+    "dotnet.defaultSolution": "Plataformeo_Pol_Barrios.sln"
 }

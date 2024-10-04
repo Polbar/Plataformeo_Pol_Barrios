@@ -18,11 +18,11 @@ public class PlayerConroller : MonoBehaviour
 
     [SerializeField] private int healthPoints = 5;
 
-    [SerializeField] private Transform attackHitBox;
-
-    [SerializeField] private float attackRadius = 1;
-
     private bool isAttacking;
+
+    [SerializeField] private Transform attackHitBox;
+    
+    [SerializeField] private float attackRadius = 1;
 
     void Awake()
     {
@@ -37,47 +37,62 @@ public class PlayerConroller : MonoBehaviour
     }
 
     void Update()
-    {   
-        
-        Movement();
+    {
+        Moviment();
 
-      
-       if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded && !isAttacking)
+        if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded && !isAttacking)
        {
-            Jump();
-       }
-
+         Jump();
+        }
+      
        if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
        {
-            Attack();
+         Attack();
        }
-    }
-
-    void Jump()
-    {
-        characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
-        characterAnimator.SetBool("IsJumping", true);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        characterRigidbody.velocity = new Vector2(horizontalInput  * characterSpeed, characterRigidbody.velocity.y);
+        if(isAttacking)
+        {
+            if(horizontalInput == 0)
+            {
+                characterRigidbody.velocity = new Vector2(0, characterRigidbody.velocity.y);
+            }
+        }
+        else 
+        {
+            characterRigidbody.velocity = new Vector2(horizontalInput  * characterSpeed, characterRigidbody.velocity.y);
+        }
+        
     }
 
-    void Movement()
+
+    void Moviment()
     {
-       horizontalInput = Input.GetAxis("Horizontal"); 
+    
+     horizontalInput = Input.GetAxis("Horizontal");
+        
 
        if(horizontalInput < 0)
        {
+
+        if(!isAttacking)
+        {
             transform.rotation = Quaternion.Euler(0, 180, 0); //sirve para girar al personaje de una manera compleja
+        }
+            
             characterAnimator.SetBool("IsRunning", true);
        }
-
-       else if(horizontalInput > 0)
+else if(horizontalInput > 0)
        {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        if(!isAttacking)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        
         characterAnimator.SetBool("IsRunning", true);
        }
 
@@ -89,8 +104,18 @@ public class PlayerConroller : MonoBehaviour
 
     void Attack()
     {
-        StartCoroutine(AttackAnimation());
-        characterAnimator.SetTrigger("Attack");
+        if(horizontalInput == 0)
+        {
+         characterAnimator.SetTrigger("Attack"); 
+        }
+
+        else
+        {
+            characterAnimator.SetTrigger("RunAttack");
+           StartCoroutine(AttackAnimation()); 
+        }
+        
+         
     }
 
     IEnumerator AttackAnimation()
@@ -99,11 +124,7 @@ public class PlayerConroller : MonoBehaviour
 
         yield return new WaitForSeconds(0.03f);
 
-        yield return new WaitForSeconds(0.2f);
-
-        isAttacking = false;
-
-        Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius);
+        Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius); 
         foreach(Collider2D enemy in collider)
         {
             if(enemy.gameObject.CompareTag("Mimico"))
@@ -111,19 +132,33 @@ public class PlayerConroller : MonoBehaviour
                 //Destroy(enemy.gameObject);
                 Rigidbody2D enemyRigidbody = enemy.GetComponent<Rigidbody2D>();
                 enemyRigidbody.AddForce(transform.right + transform.up * 2, ForceMode2D.Impulse);
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                enemyScript.TakeDamage();
             }
         }
+
+        yield return new WaitForSeconds(0.1f);
+
+        isAttacking = false;
+    }
+
+    void Jump()
+    {
+        
+     characterRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
+     characterAnimator.SetBool("IsJumping", true);
+        
     }
 
     void TakeDamage()
         {
             healthPoints--;
-
-            
+                
             if(healthPoints <= 0)
             {
                 Die();
             }
+
             else
             {
                 characterAnimator.SetTrigger("IsHurt");
