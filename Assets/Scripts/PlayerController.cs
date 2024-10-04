@@ -18,6 +18,10 @@ public class PlayerConroller : MonoBehaviour
 
     [SerializeField] private int healthPoints = 5;
 
+    [SerializeField] private Transform attackHitBox;
+
+    [SerializeField] private float attackRadius = 1;
+
     private bool isAttacking;
 
     void Awake()
@@ -87,6 +91,8 @@ public class PlayerConroller : MonoBehaviour
     {
         StartCoroutine(AttackAnimation());
         characterAnimator.SetTrigger("Attack");
+
+        Collider2D collider = Physics2D.OverlapCircle(attackHitBox.position, attackRadius);
     }
 
     IEnumerator AttackAnimation()
@@ -127,5 +133,11 @@ public class PlayerConroller : MonoBehaviour
             //Destroy(gameObject, 1f);
             TakeDamage();
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackHitBox.position, attackRadius);
     }
 }
