@@ -104,18 +104,18 @@ public class PlayerConroller : MonoBehaviour
 
     void Attack()
     {
-        if(horizontalInput == 0)
+        // Aquí se activan las animaciones según si el personaje se está moviendo o no
+        if (horizontalInput == 0)
         {
-         characterAnimator.SetTrigger("Attack"); 
+            characterAnimator.SetTrigger("Attack"); 
         }
-
         else
         {
             characterAnimator.SetTrigger("RunAttack");
-           StartCoroutine(AttackAnimation()); 
         }
         
-         
+        // Iniciamos la lógica de ataque y daño en ambos casos
+        StartCoroutine(AttackAnimation()); 
     }
 
     IEnumerator AttackAnimation()
