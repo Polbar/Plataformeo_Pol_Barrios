@@ -92,7 +92,14 @@ public class PlayerConroller : MonoBehaviour
         StartCoroutine(AttackAnimation());
         characterAnimator.SetTrigger("Attack");
 
-        Collider2D collider = Physics2D.OverlapCircle(attackHitBox.position, attackRadius);
+        Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius);
+        foreach(Collider2D enemy in collider)
+        {
+            if(enemy.gameObject.CompareTag("Mimico"))
+            {
+                Destroy(enemy.gameObject);
+            }
+        }
     }
 
     IEnumerator AttackAnimation()
