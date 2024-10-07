@@ -49,6 +49,11 @@ public class PlayerConroller : MonoBehaviour
        {
          Attack();
        }
+
+       if(Input.GetKeyDown(KeyCode.P))
+       {
+        GameManager.instance.Pause();
+       }
     }
 
     // Update is called once per frame
