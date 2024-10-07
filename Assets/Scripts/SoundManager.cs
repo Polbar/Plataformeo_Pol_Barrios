@@ -8,9 +8,21 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
     // Start is called before the first frame update
 
-    [SerializeField] private AudioClip _coinAudio;
-
     private AudioSource _audioSource;
+
+    public AudioClip coinAudio;
+
+    public AudioClip jumpAudio;
+
+    public AudioClip attackAudio;
+
+    public AudioClip attackspeedAudio;
+
+    public AudioClip deathAudio;
+
+    public AudioClip damageAudio;
+
+    public AudioClip pauseAudio;
 
     void Awake()
     {
@@ -26,8 +38,9 @@ public class SoundManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public void CoinSFX()
+
+    public void PlaySFX(AudioClip clip)
     {
-        _audioSource.PlayOneShot(_coinAudio);
+        _audioSource.PlayOneShot(clip);
     }
 }

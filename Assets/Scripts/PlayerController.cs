@@ -43,6 +43,7 @@ public class PlayerConroller : MonoBehaviour
         if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded && !isAttacking)
        {
          Jump();
+         SoundManager.instance.PlaySFX(SoundManager.instance.jumpAudio);
         }
       
        if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
@@ -53,6 +54,7 @@ public class PlayerConroller : MonoBehaviour
        if(Input.GetKeyDown(KeyCode.P))
        {
         GameManager.instance.Pause();
+        SoundManager.instance.PlaySFX(SoundManager.instance.pauseAudio);
        }
     }
 
@@ -112,11 +114,13 @@ public class PlayerConroller : MonoBehaviour
         // Aquí se activan las animaciones según si el personaje se está moviendo o no
         if (horizontalInput == 0)
         {
-            characterAnimator.SetTrigger("Attack"); 
+            characterAnimator.SetTrigger("Attack");
+            SoundManager.instance.PlaySFX(SoundManager.instance.attackAudio);
         }
         else
         {
             characterAnimator.SetTrigger("RunAttack");
+            SoundManager.instance.PlaySFX(SoundManager.instance.attackspeedAudio);
         }
         
         // Iniciamos la lógica de ataque y daño en ambos casos
@@ -155,18 +159,20 @@ public class PlayerConroller : MonoBehaviour
         
     }
 
-    void TakeDamage()
+    void TakeDamage(int damage)
         {
-            healthPoints--;
+            healthPoints -= damage;
                 
             if(healthPoints <= 0)
             {
                 Die();
+                SoundManager.instance.PlaySFX(SoundManager.instance.deathAudio);
             }
 
             else
             {
                 characterAnimator.SetTrigger("IsHurt");
+                SoundManager.instance.PlaySFX(SoundManager.instance.damageAudio);
             }
         }
     
@@ -182,7 +188,7 @@ public class PlayerConroller : MonoBehaviour
         {
             //characterAnimator.SetTrigger("IsHurt");
             //Destroy(gameObject, 1f);
-            TakeDamage();
+            TakeDamage(1);
         }
     }
 
