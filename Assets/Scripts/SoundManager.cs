@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
     // Start is called before the first frame update
 
-    private AudioSource _audioSource;
+    public AudioSource _audioSource;
 
     public AudioClip coinAudio;
 
@@ -23,6 +23,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip damageAudio;
 
     public AudioClip pauseAudio;
+
+    public AudioClip mimikAudio;
 
     void Awake()
     {
@@ -39,7 +41,7 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioSource source, AudioClip clip)
     {
         _audioSource.PlayOneShot(clip);
     }

@@ -24,6 +24,8 @@ public class PlayerConroller : MonoBehaviour
 
     [SerializeField] private float attackRadius = 3;
 
+    private AudioSource _audioSource;
+
     void Awake()
     {
         characterRigidbody = GetComponent<Rigidbody2D>();
@@ -43,7 +45,7 @@ public class PlayerConroller : MonoBehaviour
         if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded && !isAttacking)
        {
          Jump();
-         SoundManager.instance.PlaySFX(SoundManager.instance.jumpAudio);
+         SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.jumpAudio);
         }
       
        if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
@@ -54,7 +56,7 @@ public class PlayerConroller : MonoBehaviour
        if(Input.GetKeyDown(KeyCode.P))
        {
         GameManager.instance.Pause();
-        SoundManager.instance.PlaySFX(SoundManager.instance.pauseAudio);
+        SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.pauseAudio);
        }
     }
 
@@ -115,12 +117,12 @@ public class PlayerConroller : MonoBehaviour
         if (horizontalInput == 0)
         {
             characterAnimator.SetTrigger("Attack");
-            SoundManager.instance.PlaySFX(SoundManager.instance.attackAudio);
+            SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.attackAudio);
         }
         else
         {
             characterAnimator.SetTrigger("RunAttack");
-            SoundManager.instance.PlaySFX(SoundManager.instance.attackspeedAudio);
+            SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.attackspeedAudio);
         }
         
         // Iniciamos la lógica de ataque y daño en ambos casos
@@ -166,13 +168,13 @@ public class PlayerConroller : MonoBehaviour
             if(healthPoints <= 0)
             {
                 Die();
-                SoundManager.instance.PlaySFX(SoundManager.instance.deathAudio);
+                SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.deathAudio);
             }
 
             else
             {
                 characterAnimator.SetTrigger("IsHurt");
-                SoundManager.instance.PlaySFX(SoundManager.instance.damageAudio);
+                SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.damageAudio);
             }
         }
     

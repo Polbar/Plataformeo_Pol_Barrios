@@ -561,6 +561,7 @@ GameObject:
   - component: {fileID: 733060047}
   - component: {fileID: 733060046}
   - component: {fileID: 733060048}
+  - component: {fileID: 733060049}
   m_Layer: 8
   m_Name: Mimic
   m_TagString: Mimico
@@ -741,6 +742,120 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 3
+--- !u!82 &733060049
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733060042}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7e5173a3b3ccca546bb095d45237f0f1, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 20
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.05
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.28378844
+      value: 0.373596
+      inSlope: -1.0526317
+      outSlope: -1.0526317
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.72104293
+      value: 0.09588811
+      inSlope: -0.43575388
+      outSlope: -0.43575388
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.0526316
+      outSlope: -1.0526316
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &887914284
 GameObject:
   m_ObjectHideFlags: 0
@@ -52511,6 +52626,7 @@ GameObject:
   - component: {fileID: 2040706497}
   - component: {fileID: 2040706501}
   - component: {fileID: 2040706502}
+  - component: {fileID: 2040706503}
   m_Layer: 0
   m_Name: rogue
   m_TagString: Player
@@ -52687,6 +52803,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!81 &2040706503
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040706496}
+  m_Enabled: 1
 --- !u!1 &2065238796
 GameObject:
   m_ObjectHideFlags: 0
@@ -52858,6 +52982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9759068eb9732c24c982ad5352b6570a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSource: {fileID: 0}
   coinAudio: {fileID: 8300000, guid: 7e5173a3b3ccca546bb095d45237f0f1, type: 3}
   jumpAudio: {fileID: 8300000, guid: d2d3400983e41c9469d7b51d2fe576fb, type: 3}
   attackAudio: {fileID: 8300000, guid: 1a0a3b9c516ada54fad180f3779b4f1d, type: 3}
@@ -52865,6 +52990,7 @@ MonoBehaviour:
   deathAudio: {fileID: 8300000, guid: e97e03f059733434eacef24f73702225, type: 3}
   damageAudio: {fileID: 8300000, guid: b0dea17494b80204aa9b7a7b74d3f4ed, type: 3}
   pauseAudio: {fileID: 8300000, guid: 0d59aebd7fe66a546b48c83a818f1463, type: 3}
+  mimikAudio: {fileID: 0}
 --- !u!4 &2085339190
 Transform:
   m_ObjectHideFlags: 0

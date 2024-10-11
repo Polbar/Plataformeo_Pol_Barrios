@@ -21,11 +21,25 @@ public class BGMManager : MonoBehaviour
         }
 
         _audioSource = GetComponent<AudioSource>();
+        _audioSource.loop = true;
+        _audioSource.mute = false;
+        _audioSource.volume = 1;
     }
 
     public void PlayBGM(AudioClip clip)
     {
         _audioSource.Play();
         _audioSource.clip = clip;
+    }
+
+
+    public void StopBGM()
+    {
+        _audioSource.Stop();
+    }
+
+    public void PauseBGM()
+    {
+        _audioSource.Pause();
     }
 }
