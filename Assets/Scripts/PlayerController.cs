@@ -16,7 +16,9 @@ public class PlayerConroller : MonoBehaviour
 
     public static Animator characterAnimator;
 
-    [SerializeField] private int healthPoints = 5;
+    [SerializeField] private int _maxHealth = 5;
+
+    [SerializeField] private int _currentHealth;
 
     private bool isAttacking;
 
@@ -35,6 +37,9 @@ public class PlayerConroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _currentHealth = _maxHealth;
+
+        GameManager.instance.SetHealthBar(_maxHealth);
         //characterRigidbody.AddForce(Vector2.up * jumpForce);
     }
 
@@ -163,9 +168,11 @@ public class PlayerConroller : MonoBehaviour
 
     void TakeDamage(int damage)
         {
-            healthPoints -= damage;
+            _currentHealth -= damage;
+
+            GameManager.instance.UpdateHealthBar(_currentHealth);
                 
-            if(healthPoints <= 0)
+            if(_currentHealth <= 0)
             {
                 Die();
                 SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.deathAudio);
@@ -198,5 +205,19 @@ public class PlayerConroller : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackHitBox.position, attackRadius);
+    }
+
+    public void IncreaseHealth(int amount)
+    {
+    if (_currentHealth < _maxHealth)
+    {
+        _currentHealth += amount;
+        if (_currentHealth > _maxHealth) // Asegúrate de no superar el máximo
+        {
+            _currentHealth = _maxHealth;
+        }
+
+        GameManager.instance.UpdateHealthBar(_currentHealth); // Actualiza la barra de salud
+    }
     }
 }
