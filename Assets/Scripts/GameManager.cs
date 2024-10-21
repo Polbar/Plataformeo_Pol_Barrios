@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text _coinText;
     [SerializeField] GameObject _pauseCanvas;
 
+
     // Array de referencias a los objetos de estrellas
     [SerializeField] GameObject[] estrellasActivas; // Cambia a un array
 
