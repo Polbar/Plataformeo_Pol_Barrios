@@ -185,11 +185,19 @@ public class PlayerConroller : MonoBehaviour
             }
         }
     
-    void Die()
-    {
-        characterAnimator.SetTrigger("IsDeath");
-        Destroy(gameObject, 1f);
-    }
+        void Die()
+        {
+            characterAnimator.SetTrigger("IsDeath");
+            SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.deathAudio);
+            // Esperar 1 segundo para que la animación de muerte se complete y luego cambiar de escena
+            StartCoroutine(WaitAndLoadGameOver());
+        }
+
+        IEnumerator WaitAndLoadGameOver()
+        {
+            yield return new WaitForSeconds(1f); // Esperar 1 segundo
+            GameManager.instance.SceneLoader("Game Over"); // Cargar la escena de Game Over
+        }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
