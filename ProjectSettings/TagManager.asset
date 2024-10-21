@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mimico
   - star
+  - limites
   layers:
   - Default
   - TransparentFX
