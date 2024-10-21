@@ -45,7 +45,7 @@ public class PlayerConroller : MonoBehaviour
 
     void Update()
     {
-        Moviment();
+        Movement();
 
         if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded && !isAttacking)
        {
@@ -83,7 +83,7 @@ public class PlayerConroller : MonoBehaviour
     }
 
 
-    void Moviment()
+    void Movement()
     {
     
      horizontalInput = Input.GetAxis("Horizontal");
