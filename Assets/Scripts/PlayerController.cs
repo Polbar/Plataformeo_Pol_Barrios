@@ -228,4 +228,15 @@ public class PlayerConroller : MonoBehaviour
         GameManager.instance.UpdateHealthBar(_currentHealth); // Actualiza la barra de salud
     }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // Verificar si el objeto con el que colisiona tiene el tag "Limites"
+        if (other.CompareTag("limites"))
+        {
+            // Cargar la escena de Game Over
+            GameManager.instance.SceneLoader("Game Over");
+        }
+    }
+
 }
