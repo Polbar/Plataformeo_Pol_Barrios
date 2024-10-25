@@ -1,17 +1,17 @@
+// BGMManager.cs
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BGMManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     public static BGMManager instance;
 
     private AudioSource _audioSource;
 
     void Awake()
     {
-        if(instance != null && instance != this)
+        // Instancia única del BGMManager para todas las escenas excepto Main Menu
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
         }
@@ -26,20 +26,21 @@ public class BGMManager : MonoBehaviour
         _audioSource.volume = 1;
     }
 
+    // Inicializa la música de fondo
     public void PlayBGM(AudioClip clip)
     {
-        _audioSource.Play();
+        _audioSource.Stop();  // Asegurarse de que el audio se detenga antes de cambiar
         _audioSource.clip = clip;
+        _audioSource.Play();
     }
-
 
     public void StopBGM()
     {
         _audioSource.Stop();
     }
 
-    public void PauseBGM()
+    public void ResetInstance()
     {
-        _audioSource.Pause();
+        instance = null;
     }
 }

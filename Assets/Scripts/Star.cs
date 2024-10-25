@@ -13,7 +13,7 @@ public class Star : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E) && interactable)
         {
             GameManager.instance.AddStar();
-            SoundManager.instance.PlaySFX(SoundManager.instance._audioSource, SoundManager.instance.coinAudio);
+            SoundManager.instance.PlaySFX(SoundManager.instance._audioSource, SoundManager.instance.starAudio);
             Destroy(gameObject);
         }
     }

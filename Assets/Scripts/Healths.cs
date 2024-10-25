@@ -16,6 +16,7 @@ public class Healths : MonoBehaviour
             {
                 player.IncreaseHealth(1); // Aumenta la vida en 1
             }
+            SoundManager.instance.PlaySFX(SoundManager.instance._audioSource, SoundManager.instance.healAudio);
             Destroy(gameObject); // Destruye el corazón
         }
     }

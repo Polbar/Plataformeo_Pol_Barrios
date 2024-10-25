@@ -239,7 +239,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0c0bba9877b333b43aaca0d3ded10e69, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 505564e11c4d967439dbb69becc5d343, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -458,8 +458,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _coinText: {fileID: 0}
   _pauseCanvas: {fileID: 0}
+  _victoryCanvas: {fileID: 0}
   estrellasActivas: []
   _healthBar: {fileID: 0}
+  mainMenuBGM: {fileID: 8300000, guid: 505564e11c4d967439dbb69becc5d343, type: 3}
+  gameOverBGM: {fileID: 8300000, guid: edfd57ada9aaf8d46ac02827632a0755, type: 3}
+  scene1BGM: {fileID: 8300000, guid: 0c0bba9877b333b43aaca0d3ded10e69, type: 3}
+  victoryClip: {fileID: 0}
 --- !u!4 &797919988
 Transform:
   m_ObjectHideFlags: 0

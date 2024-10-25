@@ -26,6 +26,10 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip mimikAudio;
 
+    public AudioClip starAudio;
+
+    public AudioClip healAudio;
+
     void Awake()
     {
         if(instance != null && instance != this)

@@ -1,5 +1,5 @@
+// GameManager.cs
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -9,22 +9,23 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     private int coins = 0;
-    private int starsCollected = 0; // Contador de estrellas
+    private int starsCollected = 0;
     private bool isPaused;
 
     [SerializeField] Text _coinText;
     [SerializeField] GameObject _pauseCanvas;
-    
-    // Nueva referencia al Canvas Victory
     [SerializeField] GameObject _victoryCanvas;
-
-    // Array de referencias a los objetos de estrellas
     [SerializeField] GameObject[] estrellasActivas;
-
     private Animator _pausePanelAnimator;
     private bool pauseAnimator;
-
     [SerializeField] private Slider _healthBar;
+
+    [SerializeField] private AudioClip mainMenuBGM;
+    [SerializeField] private AudioClip gameOverBGM;
+    [SerializeField] private AudioClip scene1BGM;
+    [SerializeField] private AudioClip victoryClip;
+
+    private BGMManager bgmManager;
 
     void Awake()
     {
@@ -37,13 +38,23 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        // Restablecer el timeScale para asegurarte de que el juego no esté pausado
         Time.timeScale = 1;
-
         _pausePanelAnimator = _pauseCanvas.GetComponentInChildren<Animator>();
-
-        // Asegurarse de que el Canvas Victory esté desactivado al inicio
         _victoryCanvas.SetActive(false);
+
+        InitializeBGMManager();
+        SetBGMForScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void InitializeBGMManager()
+    {
+        bgmManager = BGMManager.instance;
+
+        if (bgmManager == null)
+        {
+            bgmManager = new GameObject("BGMManager").AddComponent<BGMManager>();
+            bgmManager.ResetInstance();
+        }
     }
 
     public void Pause()
@@ -79,22 +90,21 @@ public class GameManager : MonoBehaviour
 
     public void AddStar()
     {
-        // Incrementar el contador de estrellas recogidas
         starsCollected++;
 
-        // Activar la estrella correspondiente si existe
         if (starsCollected - 1 < estrellasActivas.Length)
         {
             estrellasActivas[starsCollected - 1].SetActive(true);
         }
 
-        // Comprobar si se han recogido 4 estrellas
         if (starsCollected >= 4)
         {
-            // Activar el Canvas Victory
             _victoryCanvas.SetActive(true);
+            if (bgmManager != null && victoryClip != null)
+            {
+                bgmManager.PlayBGM(victoryClip);
+            }
 
-            // Opcional: Pausar el juego si deseas mostrar la victoria como una pantalla final
             Time.timeScale = 0;
         }
     }
@@ -112,6 +122,31 @@ public class GameManager : MonoBehaviour
 
     public void SceneLoader(string sceneName)
     {
+        SetBGMForScene(sceneName);
         SceneManager.LoadScene(sceneName);
+    }
+
+    private void SetBGMForScene(string sceneName)
+    {
+        InitializeBGMManager();
+
+        switch (sceneName)
+        {
+            case "Main Menu":
+                Destroy(bgmManager.gameObject); // Reinicia el BGMManager para Main Menu
+                bgmManager = null;
+                InitializeBGMManager();
+                bgmManager.PlayBGM(mainMenuBGM);
+                break;
+            case "Game Over":
+                bgmManager.PlayBGM(gameOverBGM);
+                break;
+            case "Scene 1":
+                bgmManager.PlayBGM(scene1BGM);
+                break;
+            default:
+                bgmManager.StopBGM();
+                break;
+        }
     }
 }

@@ -1284,7 +1284,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.243
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -54269,6 +54269,10 @@ MonoBehaviour:
   - {fileID: 1805214085}
   - {fileID: 1179784397}
   _healthBar: {fileID: 1013236492}
+  mainMenuBGM: {fileID: 8300000, guid: 505564e11c4d967439dbb69becc5d343, type: 3}
+  gameOverBGM: {fileID: 8300000, guid: edfd57ada9aaf8d46ac02827632a0755, type: 3}
+  scene1BGM: {fileID: 8300000, guid: 0c0bba9877b333b43aaca0d3ded10e69, type: 3}
+  victoryClip: {fileID: 8300000, guid: f1a172dfdd4c52049919e5764b86c4a7, type: 3}
 --- !u!4 &1893596385
 Transform:
   m_ObjectHideFlags: 0
@@ -54805,6 +54809,8 @@ MonoBehaviour:
   damageAudio: {fileID: 8300000, guid: b0dea17494b80204aa9b7a7b74d3f4ed, type: 3}
   pauseAudio: {fileID: 8300000, guid: 0d59aebd7fe66a546b48c83a818f1463, type: 3}
   mimikAudio: {fileID: 0}
+  starAudio: {fileID: 8300000, guid: 2da90211d07c6714eb84121cf5968a9f, type: 3}
+  healAudio: {fileID: 8300000, guid: 5ff24cfef6be00c488c97e0232478d3f, type: 3}
 --- !u!4 &2085339190
 Transform:
   m_ObjectHideFlags: 0
